@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+  <!-- 配置springMVC编码过滤器  在spring-web包里 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+  <!-- 启动SpringMVC -->
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 参数：读取spring-mvc.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+  
+  
+  	<!-- 启动spring 它是一个监听器 在spring-web包里
+  	复习：
+  		监听器：创建Spring框架的IOC容器   将IOC容器对象放到application域
+  		从application域取IOC容器，调用WebApplicationContextUtils.getWebApplicationContext(application)
+  		然后从IOC容器获取需要的bean对象
+  		
+  		监听器实现的servletContextListener接口的作用：
+  			监听ServletContext的创建和销毁
+  				如果监听到ServletContext的创建，就会创建IOC容器(XmlWebApplicationContext)
+  					顾名思义，当application域被创建了(服务器启动)，IOC容器就创建
+  	
+  	
+  	简单的说：当启动了servlet容器后，监听器监听到servlet容器的创建后， 就会创建这个web应用全局域的ioc容器
+  	-->
+	<!-- needed for ContextLoaderListener -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  
+
+  
+  
+  
+</web-app>

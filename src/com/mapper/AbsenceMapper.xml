@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.mapper.AbsenceMapper">
+
+	<!-- 查询已缺勤的学生信息 -->
+	<select id="queryAbsedStuByUsername" parameterType="String" resultType="com.entity.AbsencePeople">
+		select * from absence where username=#{_parameter} and absent=1
+	</select>
+
+	<!-- 查询未处理请假的学生信息 -->
+	<select id="queryAbsingStuByUsername" parameterType="String" resultType="com.entity.AbsencePeople">
+		select * from absence where username=#{_parameter} order by gmtCreate DESC
+	</select>
+	
+	<!-- 学生申请请假 -->
+	<insert id="AskAbsence" parameterType="com.entity.AbsencePeople">
+		insert into absence(student,username,className,date,reason,gmtCreate) values(#{student},#{username},#{className},#{date},#{reason},now())
+	</insert>
+	
+	<!-- 查询所有已缺勤的学生信息 -->
+	<select id="queryAllAbsedStu" resultType="com.entity.AbsencePeople">
+		select * from absence where absent=1
+	</select>
+	
+	<select id="queryAbsedStuByName" parameterType="String" resultType="com.entity.AbsencePeople">
+		select * from absence where student like '%${_parameter}%' and absent=1
+	</select>
+	
+	<!-- 查询所有未处理请假的学生信息 -->
+	<select id="dealAbsingStu" resultType="com.entity.AbsencePeople">
+		select * from absence where deal='未受理'
+	</select>
+	
+	<!-- 按名字查询未处理请假的学生信息 -->
+	<select id="dealAbsingStuByName" parameterType="String" resultType="com.entity.AbsencePeople">
+		select * from absence where student like '%${_parameter}%' and deal='未受理'
+	</select>
+	
+	<!-- 根据学号和姓名查询缺勤学生/判断是否存在该学号和学生姓名 -->
+	<select id="queryAbsStuByUseAndName" parameterType="com.entity.AbsencePeople" resultType="com.entity.AbsencePeople">
+		select * from absence where student=#{student} and username=#{username} limit 1
+	</select>
+	
+	<!-- 管理增加缺勤名单 -->
+	<insert id="addAbsence" parameterType="com.entity.AbsencePeople">
+		insert into absence(student,username,className,date,reason,absent) values(#{student},#{username},#{className},#{date},#{reason},1)
+	</insert>
+	
+	
+	<!-- 批准请假 -->
+	<update id="agreeAbs" parameterType="int">
+		update absence set deal='批准' where id=#{id}
+	</update>
+	
+	<!-- 拒绝请假 -->
+	<update id="refuseAbs" parameterType="int">
+		update absence set deal='驳回' where id=#{id}
+	</update>
+	
+	<!-- 登录进来后根据用户名查询 -->
+	<select id="isView" parameterType="String" resultType="int">
+		select count(*) from absence where username=#{_parameter} and isView=0
+	</select>
+	
+	<!-- 通知 -->
+	<update id="setView" parameterType="int">
+		update absence set isView=0 where id=#{id}
+	</update>
+	
+	<!-- 已阅 -->
+	<update id="hasView" parameterType="String">
+		update absence set isView=1 where username=#{_parameter}
+	</update>
+	
+	<!-- 新请假申请通知数 -->
+	<select id="absCount" resultType="int">
+		select count(id) from absence where deal='未受理'
+	</select>
+	
+</mapper>

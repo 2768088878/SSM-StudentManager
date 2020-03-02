@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.mapper.StuMesMapper">
+
+	<!-- 判断是否存在已有学生账号 -->
+	<select id="isExist" parameterType="com.entity.People" resultType="com.entity.People">
+		select * from people where userName=#{userName}
+	</select>
+
+	<!-- 注册学生 -->
+	<insert id="addPeople" parameterType="com.entity.People">
+		insert into People(username,pwd,name,age,email,access,major,classNo,iphone,IDcard,sex) values(#{userName},#{pwd}, #{name}, #{age},#{email},#{access},#{major},#{classNo},#{iphone},#{IDcard},#{sex})
+	</insert>
+	
+	<!-- 学生登录 -->
+	<select id="LoginStudent" parameterType="com.entity.People" resultType="com.entity.People">
+		select * from people where userName=#{userName} and pwd=#{pwd} and isManager=0
+	</select>
+	
+	<!-- 管理登录 -->
+	<select id="adminLogin" parameterType="com.entity.People" resultType="com.entity.People">
+		select * from people where userName=#{userName} and pwd=#{pwd} and isManager=1
+	</select>
+	
+	<select id="queryStudentByUsername" parameterType="String" resultType="com.entity.People">
+		select * from people where userName=#{username}
+	</select>
+	
+	<select id="queryStudentByNo" parameterType="int" resultType="com.entity.People">
+		select * from people where id=#{id}
+	</select>
+	
+	<update id="updateStudentById" parameterType="com.entity.People" >
+		update people set userName=#{userName}, name=#{name},age=#{age},email=#{email},access=#{access},major=#{major},classNo=#{classNo},iphone=#{iphone},IDcard=#{IDcard},sex=#{sex} where id=#{id}
+	</update>
+	
+	
+	<!-- 管理员查询所有学生信息 -->
+	<select id="queryAllStudent" resultType="com.entity.People">
+		select * from people
+	</select>
+	
+	<!-- 查询学生总数 -->
+	<select id="studentCount" resultType="int">
+		select count(userName) from people where isManager=0
+	</select>
+	
+	<!-- 管理员分页查询所有学生信息 -->
+	<select id="queryAllStudentByPage" parameterType="int" resultType="com.entity.People">
+		select * from people where isManager=0 limit #{page},10
+	</select>
+	
+	<!-- 管理删除学生 -->
+	<delete id="deletePeopleById" parameterType="int">
+		delete from people where id=#{id}
+	</delete>
+	
+	<!-- 管理批量删除学生 -->
+	<delete id="deleteMore" parameterType="java.util.List">
+		delete from people where id in 
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+	</delete>
+	
+	
+	<select id="queryStu" parameterType="com.entity.People" resultType="com.entity.People">
+		select * from people 
+		<where>
+			and major=#{major} and classNo=#{classNo}
+				<if test="name!=null and name!=''">
+					and name like '%${name}%'
+				</if>
+			
+		</where>
+	</select>
+	
+	<!-- 通过邮箱查找学生 -->
+	<select id="queryStuByEmail" parameterType="String" resultType="com.entity.People">
+		select * from people where email=#{_parameter}
+	</select>
+	
+	
+	<!-- 修改密码-->
+	<update id="updatePwd" parameterType="com.entity.People">
+		update people set pwd=#{pwd} where email=#{email}
+	</update>
+	
+	<!-- 查询所有专业 -->
+	<select id="allMajor" resultType="String">
+		select distinct major from people where isManager=0
+	</select>
+ 
+</mapper>
