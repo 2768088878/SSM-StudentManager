@@ -64,8 +64,13 @@ public class AbsenceController {
 	//学生请假
 	@RequestMapping("AskAbsence.do")
 	public String AskAbsence(AbsencePeople absencePeople,Model model) {
+		System.out.println(absencePeople.getUsername());
 		try {
-			absenceService.AskAbsence(absencePeople);
+			if (absenceService.AskAbsence(absencePeople)) {
+				JOptionPane.showMessageDialog(null, "申请成功");
+			}else {
+				JOptionPane.showMessageDialog(null, "没有该学生！");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "申请失败");

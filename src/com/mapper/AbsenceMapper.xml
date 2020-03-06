@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询所有未处理请假的学生信息 -->
 	<select id="dealAbsingStu" resultType="com.entity.AbsencePeople">
-		select * from absence where deal='未受理'
+		select * from absence where deal='未受理' 
 	</select>
 	
 	<!-- 按名字查询未处理请假的学生信息 -->
@@ -40,13 +40,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 根据学号和姓名查询缺勤学生/判断是否存在该学号和学生姓名 -->
-	<select id="queryAbsStuByUseAndName" parameterType="com.entity.AbsencePeople" resultType="com.entity.AbsencePeople">
-		select * from absence where student=#{student} and username=#{username} limit 1
+	<select id="queryAbsStuByUseAndName" parameterType="com.entity.People" resultType="com.entity.People">
+		select * from people where name=#{name} and userName=#{userName} limit 1
 	</select>
 	
 	<!-- 管理增加缺勤名单 -->
 	<insert id="addAbsence" parameterType="com.entity.AbsencePeople">
-		insert into absence(student,username,className,date,reason,absent) values(#{student},#{username},#{className},#{date},#{reason},1)
+		insert into absence(student,username,className,date,reason,deal,absent) values(#{student},#{username},#{className},#{date},#{reason},"缺勤",1)
 	</insert>
 	
 	

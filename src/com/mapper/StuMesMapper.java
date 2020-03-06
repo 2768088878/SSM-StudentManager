@@ -29,6 +29,9 @@ public interface StuMesMapper {
 	//按学号用户名查询单个学生
 	public People queryStudentByUsername(String username) throws SQLException, ClassNotFoundException;
 	
+	//按姓名查询单个学生
+	public People queryStudentByName(String name) throws SQLException, ClassNotFoundException;
+	
 	//按id查看单个学生
 	public People queryStudentByNo(int id) throws SQLException, ClassNotFoundException;
 	

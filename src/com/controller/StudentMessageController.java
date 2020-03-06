@@ -140,10 +140,11 @@ public class StudentMessageController {
 			
 			try {
 				List<People> peoples=null;
+//				查询全部学生
 				if ("all".equals(select)) {
 					peoples = peopleService.queryAllStudentByPage((currentPage-1)*10);
 					model.addAttribute("hide",1);
-				}else {
+				}else if ("some".equals(select)){
 					People people=new People();
 					people.setMajor(major);
 					people.setClassNo(classNo);
@@ -198,10 +199,11 @@ public class StudentMessageController {
 		String msg="";
 		try {
 			peopleService.deletePeopleById(id);
+			JOptionPane.showMessageDialog(null, "删除成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/stuMes/queryAllStuByPage.do?currentPage="+currentPage;
+		return "redirect:/stuMes/queryAllStuByPage.do?currentPage="+currentPage+"&select=all";
 		
 		
 		
@@ -218,7 +220,7 @@ public class StudentMessageController {
 		
 		peopleService.deleteMore(lists);
 		JOptionPane.showMessageDialog(null, "删除成功！");
-		return "redirect:/stuMes/queryAllStuByPage.do?currentPage="+page;
+		return "redirect:/stuMes/queryAllStuByPage.do?currentPage="+page+"&select=all";
 	}
 	
 	//管理动态查询学生

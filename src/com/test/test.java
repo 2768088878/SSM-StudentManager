@@ -28,7 +28,7 @@ public class test {
 			 String userName="201"+(random.nextInt(999999999)+1);
 			 people.setUserName(userName);
 			 people.setPwd("1");
-			 people.setName("小红"+userName.substring(6));
+			 people.setName("张三"+userName.substring(6));
 			 people.setEmail("1111");
 			 people.setIDcard("4406821997");
 			 people.setIsManager(0);
@@ -37,10 +37,10 @@ public class test {
 			 people.setAge(11);
 			 Random random1=new Random();
 			 people.setClassNo(random1.nextInt(5)+1);
-			 people.setMajor("会计");
-			 people.setSex("女");
+			 people.setMajor("建筑");
+			 people.setSex("男");
 			
-			 peopleService.addPeople(people, "123456");
+			 peopleService.addPeople(people,userName);
 		 }
 		
 	}

@@ -29,6 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from people where userName=#{username}
 	</select>
 	
+	<select id="queryStudentByName" parameterType="String" resultType="com.entity.People">
+		select * from people where name=#{_parameter}
+	</select>
+	
 	<select id="queryStudentByNo" parameterType="int" resultType="com.entity.People">
 		select * from people where id=#{id}
 	</select>

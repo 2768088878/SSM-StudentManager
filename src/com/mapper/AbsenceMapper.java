@@ -3,6 +3,8 @@ package com.mapper;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import com.entity.AbsencePeople;
@@ -40,7 +42,8 @@ public interface AbsenceMapper {
 	public void addAbsence(AbsencePeople absencePeople);
 	
 	//根据学号和姓名查询缺勤学生/判断是否存在该学号和学生姓名 
-	public AbsencePeople queryAbsStuByUseAndName(AbsencePeople absencePeople);
+
+	public People queryAbsStuByUseAndName(@Param("userName") String username,@Param("name") String name);
 	
 	//批准请假
 	public void agreeAbs(int id);

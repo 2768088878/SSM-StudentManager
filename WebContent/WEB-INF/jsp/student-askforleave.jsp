@@ -110,7 +110,6 @@
 		
 		
 	<form action="/StudentManager/Absence/AskAbsence.do" method="post">	
-		<input type="hidden" value="${username}" name="username"/>	
 		<div class="leave">
         <table>
             <tr>
@@ -119,6 +118,10 @@
             <tr>
                 <td>姓名</td>
                 <td><input type="text" name="student" id="student"></td>
+            </tr>
+            <tr>
+                <td>学号</td>
+                <td><input type="text" name="username" id="username"></td>
             </tr>
             <tr>
                 <td>课程</td>
@@ -196,8 +199,9 @@
 				var student=document.getElementById("student").value;
 				var className=document.getElementById("className").value;
 				var reason=document.getElementById("reason").value;
-				if(student.length>0&&className.length>0&&reason.length>0){
-					alert("提交成功");
+				var username=document.getElementById("username").value;
+				if(student.length>0&&className.length>0&&reason.length>0&&username.length>0){
+					/* alert("提交成功"); */
 				}else{
 					event.preventDefault();
 					alert("内容不能为空");

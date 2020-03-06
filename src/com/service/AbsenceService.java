@@ -17,7 +17,7 @@ public interface AbsenceService {
 	public List<AbsencePeople> queryAbsingStuByUsername(String username) throws SQLException, ClassNotFoundException;
 	
 	//学生申请请假
-	public void AskAbsence(AbsencePeople absencePeople);
+	public boolean AskAbsence(AbsencePeople absencePeople) throws ClassNotFoundException, SQLException;
 	
 	
 	//查询所有缺勤学生
@@ -36,7 +36,7 @@ public interface AbsenceService {
 	public boolean addAbsence(AbsencePeople absencePeople);
 	
 	//根据学号和姓名查询缺勤学生/判断是否存在该学号和学生姓名 
-	public AbsencePeople queryAbsStuByUseAndName(AbsencePeople absencePeople);
+	public People queryAbsStuByUseAndName(AbsencePeople absencePeople);
 	
 	//批准请假
 	public void agreeAbs(int id);
