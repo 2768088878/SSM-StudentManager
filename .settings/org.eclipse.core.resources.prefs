@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jsp/Adminindex.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/admin-absence.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/admin-absenceResult.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/admin-addleave.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/member-list.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/student-absence.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/student-absenceResult.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/student-askforleave.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/student-list.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/student-uplist.jsp=UTF-8
