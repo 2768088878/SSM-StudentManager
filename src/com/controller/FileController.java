@@ -118,7 +118,7 @@ public class FileController {
 	}
         
 	
-	//删除文件0
+	//删除文件
 	@RequestMapping("deleteFile.do")
     public String deleteFile(HttpServletRequest req,HttpServletResponse resp) throws IOException{
 		String flag="";
