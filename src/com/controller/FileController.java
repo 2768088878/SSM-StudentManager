@@ -75,7 +75,7 @@ public class FileController {
 	}
 	
 
-	//下载文件？？？？？
+	//下载文件
 	@RequestMapping("download.do")
     public void download(@RequestParam(value="filename",required=false) String filename,HttpServletRequest req,HttpServletResponse resp) throws IOException{
 		resp.setContentType("text/html; charset=UTF-8"); //转码
