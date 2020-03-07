@@ -92,7 +92,6 @@
 					<table	class="table table-border table-bordered table-hover table-bg table-sort">
 						<thead>
 							<tr class="text-c">
-
 								<th width="30"><input type="checkbox" onchange="changebox()" id="all"></th>
 								<th width="30">学号</th>
 								<th width="30">姓名</th>

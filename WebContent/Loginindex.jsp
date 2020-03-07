@@ -3,6 +3,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
 %>
 
 <!DOCTYPE>
@@ -35,14 +36,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    String UserPwd = "";
 				    String remember = "";
 				    Cookie[] cookies=request.getCookies();
-				    for(Cookie cookie :cookies){ //查找cookie中记住的用户名和密码
-				    	System.out.println("name:"+cookie.getName()+",value:"+cookie.getValue());
-				    	if("remember".equals(cookie.getName())){
-				    		UserName = cookie.getValue().split("#")[0];
-				    		UserPwd = cookie.getValue().split("#")[1];
-				            remember =cookie.getValue().split("#")[2];
-				        }  
+				    if(cookies.length>0){
+				    	for(Cookie cookie :cookies){ //查找cookie中记住的用户名和密码
+					    	System.out.println("name:"+cookie.getName()+",value:"+cookie.getValue());
+					    	if("remember".equals(cookie.getName())){
+					    		UserName = cookie.getValue().split("#")[0];
+					    		UserPwd = cookie.getValue().split("#")[1];
+					            remember =cookie.getValue().split("#")[2];
+					        }  
+					    }
 				    }
+				    
 				%>
 
 		<div class="top">
@@ -70,6 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<font color="red">${requestScope.imageMess}</font>
 			<img src="/StudentManager/VerifyCodeServlet" style="float:right;">
 			</div>
+			
+			
 			记住密码:<input type="checkbox" name="pwdRemember" id="pwdRemember" value="true">
 			<input  class="btn1" type="button" value="换一个" style="float:right" id="btn">
 			
@@ -105,11 +111,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            "/StudentManager/VerifyCodeServlet?time=" + new Date().getTime();
 	    };
 		    
-		if(remember=="true"){
+ 		if(remember=="true"){
 			document.getElementById("pwdRemember").setAttribute("checked", "checked");
 		}else{
 			document.getElementById("pwdRemember").removeAttribute("checked");
-		}
+		} 
 		    
 	
 		

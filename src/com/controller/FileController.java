@@ -1,11 +1,14 @@
 package com.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +32,8 @@ import com.sun.corba.se.spi.orbutil.fsm.Input;
 public class FileController {
 	//文件上传
 	@RequestMapping("fileUp.do")
-	public String fileUp(@RequestParam("file") MultipartFile file,HttpServletRequest req) throws IOException {
+	public void fileUp(@RequestParam("file") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/html; charset=UTF-8"); //转码
 		File file2=new File("d:\\upload\\");
 		File[] directory=file2.listFiles();
 		if (directory.length!=0) {
@@ -39,13 +43,15 @@ public class FileController {
 		}
 		
 		
-		//获取文件输入流
-		InputStream input=file.getInputStream();
+		//获取这个要上传文件的输入流
 		
+		InputStream input=new BufferedInputStream(file.getInputStream());
+		
+//		获取到这个文件的文件名
 		String fileName=file.getOriginalFilename();
 		
 		//输出流 将文件保存到哪
-		OutputStream out = new FileOutputStream("d:\\upload\\"+fileName);
+		OutputStream out =new BufferedOutputStream(new FileOutputStream("d:\\upload\\"+fileName));
 		
 		//缓冲区
 		byte[] bs = new byte[1024];	
@@ -53,41 +59,62 @@ public class FileController {
 		while ((len=input.read(bs))!=-1) {
 			out.write(bs, 0, len);
 		}
+		out.flush();
 		input.close();
 		out.close();
 		req.getServletContext().setAttribute("fileName", fileName);
-
-		//将文件上传到服务器某个硬盘中
-	return "forward:/WEB-INF/jsp/member-uplist.jsp";
-		
+//		req.getSession().setAttribute("fileName", fileName);
+		PrintWriter printWriter = resp.getWriter();
+		printWriter.flush();
+		printWriter.println("<script>");
+		printWriter.println("alert('文件上传成功！');");
+		printWriter.println("history.back();");//这种不会刷新页面
+		printWriter.println("history.go(0);");//这种会刷新页面
+		printWriter.println("</script>");
+//		return "redirect:/to/File.do";
 	}
 	
 	//下载文件
 	@RequestMapping("download.do")
-    public void download(@RequestParam("filename") String filename,HttpServletRequest req,HttpServletResponse resp) throws IOException{
-        
+    public void download(@RequestParam(value="filename",required=false) String filename,HttpServletRequest req,HttpServletResponse resp) throws IOException{
+		resp.setContentType("text/html; charset=UTF-8"); //转码
     	//读取服务器中的文件
-
+		
+	//这里的判断是为了当没有上传文件的时候点下载也不会报错
+	if (filename!=null&&!"".equals(filename)) {
+		//指定一下要下载的位置
     	File file= new File("d:\\upload\\"+filename);
+    		//设置响应头和客户端保存文件名
+            resp.setCharacterEncoding("utf-8");
+            resp.setContentType("multipart/form-data");
+            resp.setHeader("Content-Disposition", "attachment;fileName=" + filename);
+            
+            //从网上下载文件，要获取文件的输出流
+        	OutputStream output =new BufferedOutputStream(resp.getOutputStream());
+        	
+        	//输入流，指定要输入/下载到哪里的输入流
+            InputStream input =new BufferedInputStream(new FileInputStream(file));
+
+            //循环写入输出流
+            byte[] b = new byte[2048];
+            int len=-1;
+            while ((len = input.read(b)) > 0) {
+                output.write(b, 0, len);
+          
+            }
+            
+        	output.close();
+        	
+        	input.close();
+		}else {
+			PrintWriter out = resp.getWriter();
+		    out.flush();
+		    out.println("<script>");
+		    out.println("alert('没有可下载的文件！');");
+		    out.println("history.back();");
+		    out.println("</script>");
+		}
     	
-    	//设置响应头和客户端保存文件名
-        resp.setCharacterEncoding("utf-8");
-        resp.setContentType("multipart/form-data");
-        resp.setHeader("Content-Disposition", "attachment;fileName=" + filename);
-    	
-        InputStream input = new FileInputStream(file);
-    	OutputStream output = resp.getOutputStream();
-        //循环写入输出流
-        byte[] b = new byte[2048];
-        int len=-1;
-        while ((len = input.read(b)) > 0) {
-            output.write(b, 0, len);
-      
-        }
-        
-    	output.close();
-    	
-    	input.close();
 	}
         
 	
@@ -99,7 +126,8 @@ public class FileController {
 		flag=delAllFile();
 		
 		req.setAttribute("flag", flag);
-		return "forward:/WEB-INF/jsp/member-uplist.jsp";
+		req.getServletContext().removeAttribute("fileName");
+		return "forward:/to/AdminFile.do";
     	
 	}
 	

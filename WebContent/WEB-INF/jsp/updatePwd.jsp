@@ -54,9 +54,9 @@
 		
 		var mysubmit=document.getElementById("submit");
 		mysubmit.onclick=function(){
-			if(flag==0||pwd.value==0||abc.value==0){	
+			if(flag==0||pwd.value.length<6||abc.value.length<6){	
 				event.preventDefault();
-				alert("输入有误！");
+				alert("请输入一致的密码,长度不小于6位！");
 			}else{
 				
 			}

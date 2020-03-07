@@ -110,10 +110,15 @@ public class StudentMessageController {
 			
 			int currentPage;
 			try {
+//				判断翻页如果输入0，将其转为1
 				currentPage=Integer.parseInt(page);
+				if (currentPage==0) {
+					currentPage=1;
+				}
 			} catch (Exception e) {
 				currentPage=1;
 			}
+			
 			
 			
 			int finalPage;

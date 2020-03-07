@@ -194,7 +194,7 @@
 
 <script>
 		var mysubmit=document.getElementById("btn");
-		window.onload=function(){
+//		window.onload=function(){
 			mysubmit.onclick=function(){
 				var student=document.getElementById("student").value;
 				var className=document.getElementById("className").value;
@@ -207,7 +207,7 @@
 					alert("内容不能为空");
 				}
 			}
-		}
+//		}
 </script>
 
 </body>
