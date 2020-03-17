@@ -91,7 +91,7 @@
 			<input type="button" name="sex" value="测试用户名" onclick="Testa()"> -->
 			</form> 
 			<a href="/StudentManager/FindPwd.html" style="color: white;" >忘记密码？</a>
-			<a href="/StudentManager/MLoginindex.jsp" style="color: white; float: right;" >管理入口</a>
+			<a href="/StudentManager/Loginindex.jsp" style="color: white; float: right;" >返回</a>
 		</div>
 		
 		
@@ -224,30 +224,29 @@
 		//验证班别
 		
 		
-		 window.onload=function(){
-			var mysubmit=document.getElementById("btn");
-			var r=document.getElementsByName("sex");
-			var c=document.getElementsByName("classNo");
-			mysubmit.onclick=function(event){	
-				for(var i=0;i<r.length;i++){
-					if(r[i].checked==true){
-						sexflag=1;
-					}
-				}
-				for(var j=0;j<c.length;j++){
-					if(c[i].checked==true){
-						classflag=1;
-					}
-				}
-				if(pwdflag==1&nameflag==1&ageflag==1&emailflag==1&iphoneflag==1&idcardflag==1&sexflag==1&classflag==1){				
-					
-					
-				}else{
-					event.preventDefault();
-					alert("请按照提示正确填写信息！");
+		var mysubmit=document.getElementById("btn");
+		var r=document.getElementsByName("sex");
+		var c=document.getElementsByName("classNo");
+		
+		mysubmit.onclick=function(event){	
+			for(var i=0;i<r.length;i++){
+				if(r[i].checked==true){
+					sexflag=1;
 				}
 			}
-		} //sex classNo
+			for(var j=0;j<c.length;j++){
+				if(c[j].checked==true){
+					classflag=1;
+				}
+			}
+			if(pwdflag==1&nameflag==1&ageflag==1&emailflag==1&iphoneflag==1&idcardflag==1&sexflag==1&classflag==1){				
+				
+				
+			}else{
+				event.preventDefault();
+				alert("请按照提示正确填写信息！");
+			}
+		}
 		 
 		 function newTest(){
 		 	alert("pwd:"+pwdflag+"  name:"+nameflag+"  age:"+ageflag+"  email:"+emailflag+"  iphone:"+iphoneflag+"  idcard:"+idcardflag); 

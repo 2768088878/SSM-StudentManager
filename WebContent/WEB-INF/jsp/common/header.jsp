@@ -22,7 +22,7 @@ window.onload=function(){
     
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>学生用户:${sessionScope.username} 密码：${sessionScope.pwd}</li>
+					<li>学生用户:${sessionScope.username}</li>
 								
 					<li class="dropDown dropDown_hover"> <a href="#" onclick="return false;"class="dropDown_A">菜单 <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">

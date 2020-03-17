@@ -4,6 +4,8 @@ package com.controller;
 
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.http.Cookie;
@@ -44,6 +46,8 @@ public class LoginController {
 	//学生登录
 	@RequestMapping("studentLogin.do")
 	public String studentLogin(People people,HttpServletRequest req,HttpServletResponse resp){
+        resp.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html; charset=UTF-8"); //转码
 		HttpSession session = req.getSession();
 		String imageText = req.getParameter("image");
 		// 图片的验证码
@@ -54,8 +58,14 @@ public class LoginController {
 		
 		try {
 			if (peopleService.LoginStudent(people)!=1||!text.equalsIgnoreCase(imageText)) {
-				System.out.println("学生登录失败");
-				session.invalidate();	
+	            PrintWriter printWriter = resp.getWriter();
+	            printWriter.flush();
+	            printWriter.println("<script>");
+	            printWriter.println("alert('登录失败！');");
+	            printWriter.println("history.back();");//这种不会刷新页面
+	            printWriter.println("history.go(0);");//这种会刷新页面
+	            printWriter.println("</script>");
+	            return null;	
 				
 			}else {
 				session.setAttribute("username", people.getUserName());
@@ -86,7 +96,6 @@ public class LoginController {
 		}
 
 		
-		return "forward:/Loginindex.jsp";
 		
 	}
 
@@ -133,17 +142,31 @@ public class LoginController {
 	
 	//学生注册
 		@RequestMapping("studentRegister.do")
-		public String registerStudent(People people){
-			
+		public String registerStudent(People people,HttpServletResponse resp) throws IOException{
+	        resp.setCharacterEncoding("utf-8");
+	        resp.setContentType("text/html; charset=UTF-8"); //转码
+			PrintWriter printWriter = resp.getWriter();
 			try {
 				if (peopleService.addPeople(people,people.getUserName())) {
-					return "redirect:/Loginindex.jsp";
+		            printWriter.flush();
+		            printWriter.println("<script>");
+		            printWriter.println("alert('注册成功！');");
+		            printWriter.println("history.back();");//这种不会刷新页面
+		            printWriter.println("history.go(0);");//这种会刷新页面
+		            printWriter.println("</script>");
+					return null;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "此学号已存在");
-			return "redirect:/Register.jsp";
+            printWriter.flush();
+            printWriter.println("<script>");
+            printWriter.println("alert('注册成功！');");
+            printWriter.println("history.back();");//这种不会刷新页面
+            printWriter.println("history.go(0);");//这种会刷新页面
+            printWriter.println("</script>");
+            return null;
+
 		}
 		
 		

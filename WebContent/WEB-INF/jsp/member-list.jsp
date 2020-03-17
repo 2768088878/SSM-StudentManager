@@ -107,34 +107,42 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${peoples}" var="peoples">
-							
-
-					  		<!-- 不能直接访问jsp，不然peoples集合里面没有先获取数据，所以要再xml里先设置优先访问queryAllServlet -->
-					  		<tr class="text-c">
-					  			<th><input type="checkbox" name="lists" value="${peoples.id}"></th>
-								<th>${peoples.userName}</th>
-								<th>${peoples.name}</th>
-								<th>${peoples.age}</th>
-								<th>${peoples.email}</th>
-								<th>${peoples.access}</th>
-								<th>${peoples.major}</th>
-								<th>${peoples.classNo}</th>
-								<th>${peoples.iphone}</th>
-								<th>${peoples.IDcard}</th>
-								<th>${peoples.sex}</th>
-					  			<td class="td-manage"><a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','<%=basePath%>stuMes/AdmintoEditStu.do?id=${peoples.id}','4','','510')"
-								class="ml-5" style="text-decoration:none"><i  
-									class="Hui-iconfont">&#xe6df;</i> </a> 
-							
-							<a title="删除" href="javascript:;"
-								onclick="member_del(this,'${peoples.id}','${currentPage}')" class="ml-5"
-								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
-							</a></td>
-					  		</tr>
+							<c:if test="${empty peoples}">
+								<tr>
+									<td colspan="12" align="center">抱歉！没有查询到你要的数据</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty peoples}">
+								
+								<c:forEach items="${peoples}" var="peoples">
+								
 	
-							</c:forEach>
+						  		<!-- 不能直接访问jsp，不然peoples集合里面没有先获取数据，所以要再xml里先设置优先访问queryAllServlet -->
+						  		<tr class="text-c">
+						  			<th><input type="checkbox" name="lists" value="${peoples.id}"></th>
+									<th>${peoples.userName}</th>
+									<th>${peoples.name}</th>
+									<th>${peoples.age}</th>
+									<th>${peoples.email}</th>
+									<th>${peoples.access}</th>
+									<th>${peoples.major}</th>
+									<th>${peoples.classNo}</th>
+									<th>${peoples.iphone}</th>
+									<th>${peoples.IDcard}</th>
+									<th>${peoples.sex}</th>
+						  			<td class="td-manage"><a title="编辑" href="javascript:;"
+									onclick="member_edit('编辑','<%=basePath%>stuMes/AdmintoEditStu.do?id=${peoples.id}','4','','510')"
+									class="ml-5" style="text-decoration:none"><i  
+										class="Hui-iconfont">&#xe6df;</i> </a> 
+								
+								<a title="删除" href="javascript:;"
+									onclick="member_del(this,'${peoples.id}','${currentPage}')" class="ml-5"
+									style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+								</a></td>
+						  		</tr>
+		
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 				</div>
