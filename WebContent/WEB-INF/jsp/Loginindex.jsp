@@ -1,5 +1,6 @@
 <%@page import="com.entity.People"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -36,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    String UserPwd = "";
 				    String remember = "";
 				    Cookie[] cookies=request.getCookies();
-				    if(cookies.length>0){
+				    if(cookies!=null&&cookies.length>0){
 				    	for(Cookie cookie :cookies){ //查找cookie中记住的用户名和密码
 					    	System.out.println("name:"+cookie.getName()+",value:"+cookie.getValue());
 					    	if("remember".equals(cookie.getName())){
@@ -55,6 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="login-box">
 			<h1>登录页面</h1>
 			<form action="login/studentLogin.do" method="post">
+<%-- 						<div>${msg}</div> --%>
 			<div class="textbox">
 				<i class="iconfont">&#xeb90;</i>
 				<input type="text" placeholder="Username" name="userName" id="userName" value="<%=UserName%>">
@@ -83,10 +85,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<input class="btn" type="submit"  value="登录">
 			</form>
-			<input class="btn" type="button" name="" value="注册" onclick="window.location.href='Register.jsp'">
+			<input class="btn" type="button" name="" value="注册" onclick="window.location.href='register.do'">
 			
-			<a href="/StudentManager/FindPwd.html" style="color: white;" >忘记密码？</a>
-			<a href="/StudentManager/MLoginindex.jsp" style="color: white; float: right;" >管理入口</a><!-- hrefÃ§ÂÂ/Ã¥ÂÂÃ¦ÂÂ¯Ã¦ÂÂ http://localhost:8080/ -->
+			<a href="/StudentManager/pwd.do" style="color: white;" >忘记密码？</a>
+			<a href="/StudentManager/mlogin.do" style="color: white; float: right;" >管理入口</a><!-- hrefÃ§ÂÂ/Ã¥ÂÂÃ¦ÂÂ¯Ã¦ÂÂ http://localhost:8080/ -->
 			<input type="button" value="测试" id="testCookie">
 		</div>
 		

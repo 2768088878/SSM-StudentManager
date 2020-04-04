@@ -130,7 +130,6 @@ public class FileController {
 		req.setAttribute("flag", flag);
 		req.getServletContext().removeAttribute("fileName");
 		return "forward:/to/AdminFile.do";
-    	
 	}
 	
 		//先判断文件夹里是否有文件 

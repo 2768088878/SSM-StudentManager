@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<input class="btn" type="submit"  value="登录">
 			</form>
-			<a href="/StudentManager/Loginindex.jsp" style="color: white; float: left;" >返回</a>
+			<a href="/StudentManager/login.do" style="color: white; float: left;" >返回</a>
 
 			
 		</div>

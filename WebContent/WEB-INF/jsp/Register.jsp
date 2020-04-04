@@ -90,8 +90,8 @@
 <!-- 			<input type="button" name="sex" value="测试" onclick="newTest()">
 			<input type="button" name="sex" value="测试用户名" onclick="Testa()"> -->
 			</form> 
-			<a href="/StudentManager/FindPwd.html" style="color: white;" >忘记密码？</a>
-			<a href="/StudentManager/Loginindex.jsp" style="color: white; float: right;" >返回</a>
+			<a href="/StudentManager/pwd.do" style="color: white;" >忘记密码？</a>
+			<a href="/StudentManager/login.do" style="color: white; float: right;" >返回</a>
 		</div>
 		
 		

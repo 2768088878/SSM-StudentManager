@@ -13,7 +13,7 @@
 
 
 	<!-- 扫描Controller所在的包  -->
-	<contenxt:component-scan base-package="com.controller"/>
+	<contenxt:component-scan base-package="com"/>
 
 
 	<!-- 注解驱动 -->
@@ -30,6 +30,17 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+<!-- 	<mvc:view-controller path="/" view-name="admin-login"/> -->
+
+
+	<mvc:view-controller path="/login.do" view-name="Loginindex"/>
+	<mvc:view-controller path="/register.do" view-name="Register"/>
+	<mvc:view-controller path="/mlogin.do" view-name="MLoginindex"/>
+	<mvc:view-controller path="/pwd.do" view-name="FindPwd"/>
+
+
+
+
 	
 	<!-- 上传文件需要的bean -->
 
@@ -41,19 +52,30 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- 注册拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- mvc:mapping配置要拦截的资源 -->
+			<!-- /*对应一层路径，比如：/aaa -->
+			<!-- /**对应多层路径，比如：/aaa/bbb或/aaa/bbb/ccc或/aaa/bbb/ccc/ddd -->
+			<mvc:mapping path="/**"/>
+			
+			<!-- mvc:exclude-mapping配置不拦截的资源 -->
+			<mvc:exclude-mapping path="/login.do"/>
+			<mvc:exclude-mapping path="/register.do"/>
+			<mvc:exclude-mapping path="/mlogin.do"/>
+			<mvc:exclude-mapping path="/pwd.do"/>
+			<mvc:exclude-mapping path="/login/studentLogin.do"/>
+			<mvc:exclude-mapping path="/login/adminLogin.do"/>
+			<mvc:exclude-mapping path="/login/studentRegister.do"/>
+			<mvc:exclude-mapping path="/login/findPwd.do"/>
+			<mvc:exclude-mapping path="/login/updatePwd.do"/>
+			<mvc:exclude-mapping path="/to/updatePassword.do"/>
+			<!-- 配置拦截器类 -->
+			<bean class="com.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	 
 
 
 </beans>

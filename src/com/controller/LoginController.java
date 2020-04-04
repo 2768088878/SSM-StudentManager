@@ -70,7 +70,6 @@ public class LoginController {
 			}else {
 				session.setAttribute("username", people.getUserName());
 				session.setAttribute("pwd", people.getPwd());
-				System.out.println("学生登录成功:"+username+"......"+pwd);
 				session.setMaxInactiveInterval(30*60);//30秒
 				
 					//是否勾选了记住密码
@@ -92,7 +91,7 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "forward:/Loginindex.jsp";
+			return "redirect:/login.do";
 		}
 
 		
@@ -114,12 +113,10 @@ public class LoginController {
 			System.out.println("imageText:"+imageText+",text:"+text);
 			try {
 				if (peopleService.adminLogin(people)!=1||!text.equalsIgnoreCase(imageText)) {
-					System.out.println("管理登录失败");
 					session.invalidate();		
 				}else {
 					session.setAttribute("username", people.getUserName());
 					session.setAttribute("pwd", people.getPwd());
-					System.out.println("管理员登录成功");
 					session.setMaxInactiveInterval(30*60);//30秒
 					
 //					管理登录进来的时候查询通知
@@ -135,7 +132,7 @@ public class LoginController {
 			
 
 
-			return "redirect:/MLoginindex.jsp";
+			return "redirect:/mlogin.do";
 				
 			
 		}
@@ -177,7 +174,7 @@ public class LoginController {
 			HttpSession session = req.getSession();
 			session.invalidate();
 		
-			return "redirect:/Loginindex.jsp";
+			return "redirect:/login.do";
 		}
 		
 		
@@ -200,14 +197,14 @@ public class LoginController {
 				System.out.println("请根据邮箱发送的链接修改密码");
 //				req.getServletContext().setAttribute("email",email);
 				req.getSession().setAttribute("email",email);
-				return "forward:/FindPwd.html";
+				return "redirect:/pwd.do";
 			}else {
 				System.out.println("该邮箱未注册，请重新输入！");
-				return "forward:/FindPwd.html";
+				return "redirect:/pwd.do";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/FindPwd.html";
+			return "redirect:/pwd.do";
 		}
 		
 		
@@ -228,6 +225,6 @@ public class LoginController {
 			JOptionPane.showMessageDialog(null, "错误");
 		}
 		
-		return "redirect:/Loginindex.jsp";
+		return "redirect:/login.do";
 	}
 }

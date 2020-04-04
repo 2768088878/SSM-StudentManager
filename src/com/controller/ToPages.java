@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("to")
 public class ToPages {
 
+	
 	//前往申请请假页
 	@RequestMapping("student-askforleave.do")
 	public String toAskAbsence(@RequestParam String username,Model model) {

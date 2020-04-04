@@ -32,7 +32,7 @@
 			
 			<input class="btn" id="submit" type="submit"  value="提交">
 			</form>
-			<a href="/StudentManager/Loginindex.jsp" style="color: white; float: right;" >返回</a>
+			<a href="/StudentManager/login.do" style="color: white; float: right;" >返回</a>
 		</div>
 
 		
